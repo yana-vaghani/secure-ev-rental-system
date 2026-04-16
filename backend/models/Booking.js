@@ -7,6 +7,11 @@ const bookingSchema = new mongoose.Schema({
         required: true
     },
     vehicleName: String,
+    vehicleType: {
+        type: String,
+        enum: ["car", "bike"],
+        default: "car"
+    },
     station: String,
     startTime: Date,
     endTime: Date,
@@ -17,6 +22,33 @@ const bookingSchema = new mongoose.Schema({
     },
     rejectReason: String,
     flaggedReason: String,
+    distanceTravelledKm: {
+        type: Number,
+        default: 0
+    },
+    usageHours: {
+        type: Number,
+        default: 0
+    },
+    damageReported: {
+        type: Boolean,
+        default: false
+    },
+    damageNotes: String,
+    isCompleted: {
+        type: Boolean,
+        default: false
+    },
+    returnedAt: Date,
+    review: {
+        rating: Number,
+        comment: String,
+        createdAt: Date
+    },
+    sharedOnPlatform: {
+        type: Boolean,
+        default: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

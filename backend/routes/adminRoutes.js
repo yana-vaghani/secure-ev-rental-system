@@ -3,24 +3,18 @@ const router = express.Router();
 
 const authMid = require("../middleware/authMiddleware");
 const roleMid = require("../middleware/roleMiddleware");
+const { updateBookingStatus } = require("../controllers/bookingController");
+const {
+    getOverview,
+    getAlerts,
+    getBookings,
+    getLogs
+} = require("../controllers/adminController");
 
-// TODO: Create admin controllers
-// For now, return placeholder responses
-
-router.get("/bookings", authMid, roleMid.requireRole(["admin"]), (req, res) => {
-    res.json({ message: "Admin bookings endpoint" });
-});
-
-router.get("/users", authMid, roleMid.requireRole(["admin"]), (req, res) => {
-    res.json({ message: "Admin users endpoint" });
-});
-
-router.get("/logs", authMid, roleMid.requireRole(["admin"]), (req, res) => {
-    res.json({ message: "Admin logs endpoint" });
-});
-
-router.get("/fraud-alerts", authMid, roleMid.requireRole(["admin"]), (req, res) => {
-    res.json({ message: "Admin fraud alerts endpoint" });
-});
+router.get("/overview", authMid, roleMid.requireRole("admin"), getOverview);
+router.get("/alerts", authMid, roleMid.requireRole("admin"), getAlerts);
+router.get("/bookings", authMid, roleMid.requireRole("admin"), getBookings);
+router.patch("/bookings/:id", authMid, roleMid.requireRole("admin"), updateBookingStatus);
+router.get("/logs", authMid, roleMid.requireRole("admin"), getLogs);
 
 module.exports = router;
