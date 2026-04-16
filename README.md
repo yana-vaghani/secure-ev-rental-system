@@ -1,70 +1,208 @@
-# Getting Started with Create React App
+# 🚗 Secure EV Rental System (Cybersecurity-Focused)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application for renting electric vehicles with a strong focus on **security, fraud prevention, and system design**.
+This project demonstrates real-world cybersecurity practices integrated into a modern web application.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔥 Features
 
-### `npm start`
+### 🔐 Authentication & Security
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* JWT-based authentication
+* OTP-based 2-Factor Authentication (2FA)
+* Password hashing using bcrypt
+* Secure token handling
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 👥 Role-Based Access Control (RBAC)
 
-### `npm test`
+* **User** → Book EVs
+* **Station Master** → Approve/Reject bookings
+* **Admin** → Full system access
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🚗 EV Booking System
 
-### `npm run build`
+* Book electric vehicles with time slots
+* Booking status: `pending`, `approved`, `rejected`
+* Approval workflow for secure operations
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🚨 Fraud Detection System
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Detects suspicious activity (e.g., multiple bookings in short time)
+* Prevents misuse and bot-like behavior
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 📜 Activity Logging (Audit Trail)
 
-### `npm run eject`
+* Tracks user actions (login, booking, approval)
+* Useful for monitoring and forensic analysis
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🛡️ Cybersecurity Features
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Input validation
+* Token verification
+* Role-based authorization
+* Error handling and secure APIs
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🛠️ Tech Stack
 
-## Learn More
+### Frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* React.js
+* Axios
+* React Router
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Backend
 
-### Code Splitting
+* Node.js
+* Express.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Database
 
-### Analyzing the Bundle Size
+* MongoDB (Atlas)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Security
 
-### Making a Progressive Web App
+* JWT (Authentication)
+* bcrypt (Password hashing)
+* Nodemailer (OTP email)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 📁 Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+secure-ev-rental/
+│
+├── backend/
+│   ├── models/
+│   ├── controllers/
+│   ├── routes/
+│   ├── middleware/
+│   ├── utils/
+│   └── server.js
+│
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   └── App.js
+│
+└── README.md
+```
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## ⚙️ Installation & Setup
 
-### `npm run build` fails to minify
+### 🔹 1. Clone Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+git clone https://github.com/your-username/secure-ev-rental.git
+cd secure-ev-rental
+```
+
+---
+
+### 🔹 2. Setup Backend
+
+```
+cd backend
+npm install
+```
+
+Create `.env` file:
+
+```
+MONGO_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
+EMAIL_USER=your_email
+EMAIL_PASS=your_app_password
+```
+
+Run backend:
+
+```
+node server.js
+```
+
+---
+
+### 🔹 3. Setup Frontend
+
+```
+cd frontend
+npm install
+npm start
+```
+
+---
+
+## 🔄 Application Flow
+
+1. User registers & logs in
+2. OTP is sent for verification
+3. User verifies OTP → receives JWT token
+4. User books EV → status = pending
+5. Station Master/Admin approves booking
+6. Fraud detection monitors activity
+7. All actions are logged
+
+---
+
+## 🧪 API Endpoints (Sample)
+
+| Method | Endpoint                    | Description       |
+| ------ | --------------------------- | ----------------- |
+| POST   | `/api/auth/register`        | Register user     |
+| POST   | `/api/auth/login`           | Login & send OTP  |
+| POST   | `/api/auth/verify-otp`      | Verify OTP        |
+| POST   | `/api/bookings`             | Create booking    |
+| PUT    | `/api/bookings/approve/:id` | Approve booking   |
+| GET    | `/api/bookings/my`          | User bookings     |
+| GET    | `/api/logs`                 | View logs (admin) |
+
+---
+
+## 🚀 Future Enhancements
+
+* 🔐 KYC verification (face + document match)
+* 💳 Secure payment integration
+* 📍 GPS tracking for EVs
+* 📊 Advanced analytics dashboard
+* 🤖 AI-based fraud detection
+
+---
+
+## 🎯 Learning Outcomes
+
+* Full-stack development (React + Node.js)
+* REST API design
+* Authentication & Authorization
+* Cybersecurity implementation in real systems
+* Database design and integration
+
+---
+
+## 👩‍💻 Author
+
+**Yana Vaghani**
+Computer Science Engineering Student
+Aspiring Data Analyst
+
+---
+
+## ⭐ Contribute / Support
+
+If you like this project:
+
+* ⭐ Star the repo
+* 🍴 Fork it
+* 🛠️ Contribute improvements
+
+---
+
+## 📜 License
+
+This project is for educational purposes.
